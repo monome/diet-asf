@@ -1,0 +1,12 @@
+--- pll.h	2016-02-04 10:39:50.000000000 +0000
++++ pll-fixed.h	2016-03-21 15:11:27.000000000 +0000
+@@ -233,7 +233,8 @@
+ 
+ static inline void pll_enable_config_defaults(unsigned int pll_id)
+ {
+-	struct pll_config pllcfg;
++	// FIXED: samdoshi 2016-03-21 - initialise pllcfg
++	struct pll_config pllcfg = { .ctrl = 0 };
+ 
+ 	if (pll_is_locked(pll_id)) {
+ 		return; // Pll already running

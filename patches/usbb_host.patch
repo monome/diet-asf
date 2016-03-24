@@ -1,0 +1,12 @@
+--- usbb_host.c	2016-03-17 15:13:16.000000000 +0000
++++ usbb_host-fixed.c	2016-03-17 15:15:51.000000000 +0000
+@@ -45,6 +45,9 @@
+  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+  */
+ 
++// FIXED: samdoshi 2016-03-17 - added missing import
++#include "pm.h"
++
+ #include "conf_usb_host.h"
+ #include "sysclk.h"
+ #include "uhd.h"
