@@ -33,11 +33,7 @@ echo "Pruning"
 
 rm    asf/asf-releasenotes-3.30.0.pdf
 rm -r asf/avr32/applications
-rm -r asf/avr32/boards/avr_simulator_uc3
-rm -r asf/avr32/boards/evk*
-rm -r asf/avr32/boards/rz600
-rm -r asf/avr32/boards/stk600
-rm -r asf/avr32/boards/uc3*
+rm -r asf/avr32/boards
 rm -r asf/avr32/components/accelerometer
 rm -r asf/avr32/components/audio
 rm -r asf/avr32/components/clocks
@@ -91,6 +87,7 @@ rm    asf/avr32/utils/header_files/avr32-headers.zip
 rm -r asf/avr32/utils/libs
 rm -r asf/avr32/utils/linker_scripts
 rm -r asf/common/applications
+rm -r asf/common/boards/user_board
 rm -r asf/common/components
 rm -r asf/common/drivers
 rm -r asf/common/services/adp
@@ -143,6 +140,7 @@ find ./asf -name "_asf_v1"       -type d -print0 | xargs -0 rm -r
 
 patch asf/avr32/drivers/usbb/usbb_host.c patches/usbb_host.patch
 patch asf/common/services/clock/uc3b0_b1/pll.h patches/pll.patch
+patch asf/common/boards/board.h patches/board.patch
 
 echo "Pruned size of asf"
 du -hs asf
