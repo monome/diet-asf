@@ -1,0 +1,6 @@
+375c375,377
+< #  include "user_board.h"
+---
+> // changed: ezra buchla 2016-10-29
+> // eliminated user_board.h, it was confusing some of the drivers.
+> #  include "conf_board.h"
