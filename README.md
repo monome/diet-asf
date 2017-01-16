@@ -1,5 +1,7 @@
 # dief-asf
 
+[![Build Status](https://travis-ci.org/monome/diet-asf.svg?branch=master)](https://travis-ci.org/monome/diet-asf)
+
 This tool is used to generate the `asf` folder for the [monome/libavr32][] repo. It removes files that we don't use and patches others. Currently that results in a size reduction from 1.6 *giga*bytes to 3.2 *mega*bytes. It's a very large repo (sorry GitHub!).
 
 To run, execute:
