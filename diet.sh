@@ -1,8 +1,17 @@
 #!/bin/bash
 set -e
 
+OS=`uname | tr '[A-Z]' '[a-z]'`
 ASF_DIR="xdk-asf-3.30.0"
 ASF_ZIP="archive/asf-standalone-archive-3.30.0.43.zip"
+
+# we need to add -r to GNU xargs
+find-rm() {
+    case $OS in
+        darwin) find ./asf -name $1 -type d -print0 | xargs -0 rm -r ;;
+        linux)  find ./asf -name $1 -type d -print0 | xargs -r -0 rm -r ;;
+    esac
+}
 
 if [[ ! -f $ASF_ZIP ]]; then
     cat $ASF_ZIP.* > $ASF_ZIP
@@ -22,7 +31,7 @@ shasum -c SHA256SUMS
 echo "SHA256 sums check"
 
 # unzip has problems with the zip file!
-7z x $ASF_ZIP
+7z x $ASF_ZIP 1>/dev/null
 mv $ASF_DIR asf
 
 echo "Size of asf"
@@ -121,22 +130,22 @@ rm -r asf/sam0
 rm -r asf/thirdparty
 rm -r asf/xmega
 
-find ./asf -name "mega*"         -type d -print0 | xargs -0 rm -r
-find ./asf -name "sam*"          -type d -print0 | xargs -0 rm -r
-find ./asf -name "xmega*"        -type d -print0 | xargs -0 rm -r
-find ./asf -name "iar"           -type d -print0 | xargs -0 rm -r
-find ./asf -name "doxygen"       -type d -print0 | xargs -0 rm -r
-find ./asf -name "example"       -type d -print0 | xargs -0 rm -r
-find ./asf -name "examples"      -type d -print0 | xargs -0 rm -r
-find ./asf -name "*_example"     -type d -print0 | xargs -0 rm -r
-find ./asf -name "*_examples"    -type d -print0 | xargs -0 rm -r
-find ./asf -name "example_*"     -type d -print0 | xargs -0 rm -r
-find ./asf -name "examples_*"    -type d -print0 | xargs -0 rm -r
-find ./asf -name "example[0-9]*" -type d -print0 | xargs -0 rm -r
-find ./asf -name "*example[0-9]" -type d -print0 | xargs -0 rm -r
-find ./asf -name "unit_tests"    -type d -print0 | xargs -0 rm -r
-find ./asf -name "*xplained"     -type d -print0 | xargs -0 rm -r
-find ./asf -name "_asf_v1"       -type d -print0 | xargs -0 rm -r
+find-rm "mega*"
+find-rm "sam*"
+find-rm "xmega*"
+find-rm "iar"
+find-rm "doxygen"
+find-rm "example"
+find-rm "examples"
+find-rm "*_example"
+find-rm "*_examples"
+find-rm "example_*"
+find-rm "examples_*"
+find-rm "example[0-9]*"
+find-rm "*example[0-9]"
+find-rm "unit_tests"
+find-rm "*xplained"
+find-rm "_asf_v1"
 
 patch asf/avr32/drivers/usbb/usbb_host.c patches/usbb_host.patch
 patch asf/common/services/clock/uc3b0_b1/pll.h patches/pll.patch
